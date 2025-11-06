@@ -13,3 +13,15 @@ def index(request):
     return render(request, "tasks/index.html", {
         "tasks": tasks  # Pass tasks to the template
     })
+
+# In views.py
+from django.http import JsonResponse
+from .models import Task
+def get_tasks(request):
+    tasks = Task.objects.all().values()  # Fetch all tasks
+    return JsonResponse(list(tasks), safe=False)
+
+[
+    {"id": 1, "name": "Complete homework", "completed": False},
+    {"id": 2, "name": "Buy groceries", "completed": True}
+]
